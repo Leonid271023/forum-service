@@ -25,6 +25,32 @@ class PostRepository {
     async findPostsByAuthor(author) {
         return Post.find({author});
     }
+
+    async addComment(id, commenter, message) {
+        return Post.findByIdAndUpdate(id,
+            {$push: {comments: {user: commenter, message: message}}},
+            {new: true})
+    }
+
+    async findPostsByTags(tags) {
+        return Post.find({
+            tags: {$in: tags}
+        });
+    }
+
+    async findPostByPeriod(dateForm, dateTo) {
+        return Post.find({
+            dateCreated: {$gte: dateForm, $lte: dateTo}
+        })
+    }
+
+    async updatePost(id, data) {
+        return Post.findByIdAndUpdate(
+            id,
+            data,
+            { new: true }
+        );
+    }
 }
 
 export default new PostRepository();

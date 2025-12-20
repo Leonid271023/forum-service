@@ -1,29 +1,54 @@
-import mongoose from 'mongoose';
+import {Schema, model, Types} from 'mongoose';
+import commentSchema from "./comment.model.js";
 
-const postModel = new mongoose.Schema(
+const postSchema = new Schema(
     {
-        title: {type: String, required: true},
-        content: {type: String, required: true},
-        author: {type: String, required: true},
+        _id: {
+            type: String,
+            default:() => new Types.ObjectId().toHexString()
+        },
+        title: {
+            type: String,
+            required: true
+        },
+        content: {
+            type: String,
+            required: true
+        },
+        author: {
+            type: String,
+            required: true
+        },
 
-        dateCreated: {type: Date, default: Date.now},
+        dateCreated: {
+            type: Date,
+            default: Date.now
+        },
 
-        tags: {type: [String], default: []},
+        tags: {
+            type: [String],
+            default: []
+        },
 
-        likes: {type: Number, default: 0},
+        likes: {
+            type: Number,
+            default: 0
+        },
 
-        comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
+        comments: {
+            type: [commentSchema],
+            default: []
+        },
     },
     {
         versionKey: false,
         toJSON: {
             transform(doc, ret) {
-                ret.id = ret._id.toString();
+                ret.id = ret._id;
                 delete ret._id;
             },
         },
     }
 );
 
-const Post = mongoose.model('Post', postModel);
-export default Post;
+export default model('Post', postSchema, 'posts');

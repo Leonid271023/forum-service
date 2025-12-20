@@ -1,22 +1,31 @@
+import postRepository from "../repositories/post.repository.js";
+
 class PostService {
-    async createPost(userName, data) {
-           //TODO add post. data
-        throw new Error('Not implemented');
+    async createPost(author, data) {
+        return await  postRepository.createPost({...data, author});
     }
 
     async getPostById(id){
-        //TODO return post by id
-        throw new Error('Not implemented');
+        const post = await postRepository.findPostById(id);
+        if(!post){
+            throw new Error(`Post with id ${id} not found`);
+        }
     }
 
-    async addLike(postId){
-        //TODO add like to post
-        throw new Error('Not implemented');
+    async addLikePost(id) {
+        const post = await postRepository.addLikePost(id);
+        if (!post) {
+            throw new Error(`Post with id ${id} not found`);
+        }
+        return post;
     }
 
-    async getPostByAuthor(author){
-        //TODO return posts by author
-        throw new Error('Not implemented');
+    async getPostByAuthor(author) {
+        const posts = await postRepository.findPostsByAuthor(author);
+        if (!posts || posts.length === 0) {
+            throw new Error(`No posts found for author ${author}`);
+        }
+        return posts;
     }
 
     async addComment(postId, commenter, message){
@@ -25,8 +34,11 @@ class PostService {
     }
 
     async deletePost(postId){
-        //TODO delete post by id
-        throw new Error('Not implemented');
+        const post = await postRepository.deletePost(postId);
+        if(!post){
+            throw new Error(`Post with id ${postId} not found`);
+        }
+        return post;
     }
 
     async getPostsByTag(tagsString){

@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const schema ={
+const schemas ={
     createPost: Joi.object({
         title: Joi.string().required(),
         content: Joi.string().required(),

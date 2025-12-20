@@ -6,13 +6,14 @@ import validate from "../middlewares/validation.middleware.js";
 
 const router = Router();
 
-router.post("/post/:author",validate('createPost'), postController.createPost);
-router.get("/post/:id", postController.getPostById);
-router.delete("/post/:id", postController.deletePost);
-router.patch("/post/:id/like", postController.patchAddLike);
-router.get("/posts/author/:author", postController.getPostsByAuthor);
-router.patch("/post/:id/comment/:commenter", postController.patchAddComment);
-router.get("/posts/tags", postController.getPostsByTags);
-router.get("/posts/period", postController.getPostsByPeriod);
-router.patch('/post/:id', postController.patchUpdatePost);
+router.post('/post/:author', validate('createPost'), postController.createPost)
+router.get('/post/:id', postController.getPostById)
+router.delete('/post/:id', postController.deletePost)
+router.patch('/post/:id/like', postController.addLike);
+router.get('/posts/author/:author', postController.getPostsByAuthor);
+router.patch('/post/:id/comment/:commenter', validate('addComment'), postController.addComment);
+router.get('/posts/tags', postController.getPostsByTags);
+router.get('/posts/period', validate('dateFormat', 'query'), postController.getPostsByPeriod);
+router.patch('/post/:id', validate('updatePost'), postController.updatePost);
+
 export default router;

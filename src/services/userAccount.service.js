@@ -19,3 +19,5 @@ class UserAccountService {
         //TODO: add or remove role and return user profile
     }
 }
+
+export default new UserAccountService();

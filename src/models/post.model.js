@@ -40,10 +40,6 @@ const postSchema = new Schema(
             type: [commentSchema],
             default: []
         },
-        userRegistered:{
-            type: [userSchema],
-            default: []
-        }
     },
     {
         versionKey: false,

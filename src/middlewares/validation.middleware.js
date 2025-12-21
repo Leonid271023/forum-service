@@ -20,6 +20,26 @@ const schemas ={
         dateForm: Joi.date().iso().required(),
         dateTo: Joi.date().iso().required(),
     }),
+    register: Joi.object({
+        login: Joi.string().required(),
+        password: Joi.string().required(),
+        firstName: Joi.string().required(),
+        lastName: Joi.string().required(),
+    }),
+    updateUser: Joi.object({
+        firstName: Joi.string(),
+        lastName: Joi.string(),
+    }),
+    addRole: Joi.object({
+        role: Joi.string()
+            .valid('ADMIN', 'USER', 'MODERATOR')
+            .required()
+    }),
+    deleteRole: Joi.object({
+        role: Joi.string()
+            .valid('ADMIN', 'USER', 'MODERATOR')
+            .required()
+    })
 
 
 }

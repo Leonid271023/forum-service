@@ -1,21 +1,32 @@
 const errorHandler = (err, req, res, next) => {
     console.log(err.stack);
-    const contains = err.message.includes('not found');
-    if(err.message && contains){
+    if (err.message && err.message.includes('not found')) {
         return res.status(404).json({
-            status: 'Not Found',
+            status: 'Not found',
             code: 404,
             message: err.message,
             path: req.path
-        }
-        );
+        });
     }
-    return res.status(500).json(
-        {
-            status: 'Internal Server Error',
-            code: 500,
+
+
+    if (err.message && err.message.includes('login already exists')) {
+        return res.status(409).json({
+            status: 'Conflict',
+            code: 409,
             message: err.message,
             path: req.path
         });
+    }
+
+
+    return res.status(500).json({
+        status: 'Internal server error',
+        code: 500,
+        message: err.message,
+        path: req.path
+    });
 }
+
+
 export default errorHandler;

@@ -1,5 +1,6 @@
 import {Schema, model, Types} from 'mongoose';
 import commentSchema from "./comment.model.js";
+import userSchema from "./user.model.js";
 
 const postSchema = new Schema(
     {
@@ -39,6 +40,10 @@ const postSchema = new Schema(
             type: [commentSchema],
             default: []
         },
+        userRegistered:{
+            type: [userSchema],
+            default: []
+        }
     },
     {
         versionKey: false,

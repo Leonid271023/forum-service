@@ -1,6 +1,4 @@
 import UserAccountService from "../services/userAccount.service.js";
-import userAccountService from "../services/userAccount.service.js";
-
 //dont do login and change password
 
 
@@ -16,7 +14,8 @@ class UserAccountController {
 
 
     async login(req, res, next) {
-        const userAccount = await  userAccountService.getUser(req.principal.username);
+        const userAccount = await
+            UserAccountService.getUser(req.principal.username);
         return res.json(userAccount);
     }
 
@@ -64,7 +63,7 @@ class UserAccountController {
 
 
     async changePassword(req, res, next) {
-         await userAccountService.changePassword(req.principal.username, req.body.password);
+         await UserAccountService.changePassword(req.principal.username, req.body.password);
          return res.sendStatus(204);
     }
 

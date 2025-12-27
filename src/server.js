@@ -1,6 +1,7 @@
 import express, from 'express'
 import {Router} from 'express'
 import mongoose from 'mongoose'
+import cors from 'cors'
 import config from './config/config.js';
 import postRoutes from "./routes/post.routes.js";
 import userAccountRoutes from "./routes/userAccount.router.js";
@@ -11,7 +12,7 @@ import authorization from "./middlewares/authorization.middleware.js";
 import {ADMIN, MODERATOR} from "./config/constants.js";
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 const authorizationRouter = Router();
 

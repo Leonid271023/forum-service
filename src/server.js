@@ -10,9 +10,10 @@ import authentication from "./middlewares/authentication.middleware.js";
 import {createAdmin} from "./config/initAdmin.js";
 import authorization from "./middlewares/authorization.middleware.js";
 import {ADMIN, MODERATOR} from "./config/constants.js";
+import {corsOptions} from "./config/corsOptions.js";
 
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 const authorizationRouter = Router();
 
